@@ -297,6 +297,27 @@
       <router-view/>
      
 </div> 
+<foot></foot>
 </template>
 
 
+
+<script>
+import Foot from './footer.vue'
+
+export default{
+    components:{
+        Foot
+    }
+}
+</script>
+
+<style>
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white; /* Ajusta según tu diseño */
+  z-index: 1000; /* Ajusta según la necesidad */
+}
+</style>
