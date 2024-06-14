@@ -15,6 +15,8 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+  background: white; /* Ajusta según tu diseño */
+  z-index: 1000; /* Ajusta según la necesidad */
 }
 </style>
 
