@@ -32,3 +32,30 @@ def get_personas():
 def savePersonas(datos_persona:model_personas):
     personas.append(datos_persona)
     return "Datos guardados correctamente"
+
+@persona.get("/personas/{persona_id}")
+def get_persona(persona_id: int):
+    for persona in personas:
+        if persona.id == persona_id:
+            return persona
+
+
+@persona.put("/personas/{persona_id}")
+def update_persona(persona_id: int, datos_persona: model_personas):
+    for index, persona in enumerate(personas):
+        if persona.id == persona_id:
+            # Evitar actualizar el campo 'id'
+            datos_persona.id = persona.id  # Mantener el mismo id
+            personas[index] = datos_persona
+            return "Datos actualizados correctamente"
+
+
+@persona.delete("/personas/{persona_id}")
+def delete_persona(persona_id: int):
+    for index, persona in enumerate(personas):
+        if persona.id == persona_id:
+            del personas[index]
+            return "Persona eliminada correctamente"
+
+
+
