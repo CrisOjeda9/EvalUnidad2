@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from routes.users import user
 from routes.persons import person
 from routes.roles import roles
-from routes.usuarios_roles import UsuarioRol
+from routes.usersrols import userrol
 
 app= FastAPI()
 #app.include_router(persona)
@@ -12,7 +12,8 @@ app= FastAPI()
 app.include_router(user)
 app.include_router(person)
 app.include_router(roles)
-app.include_router(UsuarioRol)
+app.include_router(userrol)
+
 
 
 

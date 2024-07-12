@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from config.db import Base
 
 class Rol(Base):
-    __tablename__ = "roles"
+    __tablename__ = "tbc_roles"
     
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String(255))
