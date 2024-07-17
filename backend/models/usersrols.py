@@ -1,6 +1,8 @@
-from sqlalchemy import Column, Integer,Boolean, DateTime, ForeignKey
+from sqlalchemy import Column,Integer,String,Boolean,DateTime,ForeignKey
+from sqlalchemy.dialects.mysql import LONGTEXT
 from sqlalchemy.orm import relationship
 from config.db import Base
+
 import models.users, models.roles
 
 class UserRol(Base):
@@ -11,4 +13,6 @@ class UserRol(Base):
     Estatus = Column(Boolean)
     Fecha_Registro = Column(DateTime)
     Fecha_Actualizacion = Column(DateTime)
+    
+    
     

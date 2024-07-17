@@ -6,6 +6,7 @@ from routes.persons import person
 from routes.roles import roles
 from routes.usersrols import userrol
 
+
 app= FastAPI()
 #app.include_router(persona)
 #app.include_router(usuario)
