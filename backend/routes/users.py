@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends, Request
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 import crud.users, config.db, schemas.users, models.users
 from typing import List
@@ -49,7 +50,7 @@ def delete_user(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Usuario no existe, no se pudo eliminar")
     return db_user
 
-@user.post("/login/", response_model=schemas.users.User, tags=["Usuarios"], dependencies=[Depends(Portador())])
+@user.post("/login/", response_model=schemas.users.User, tags=["Usuarios Login"],)
 def read_credentials(user:schemas.users.UserLogin, db:Session=Depends(get_db)):
     db_credentials = crud.users.get_user_by_credentials(db,usuario=user.Nombre_Usuario,Correo_Electronico=user.Correo_Electronico,Telefono=user.Numero_Telefonico_Movil,password=user.Contrasena)
     if db_credentials is None:
