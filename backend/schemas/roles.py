@@ -7,6 +7,8 @@ class RolBase(BaseModel):
     descripcion: str
     estatus:bool
     created_at:datetime
+    fecha_actualizacion:datetime
+
     
     
 class RolCreate(RolBase):

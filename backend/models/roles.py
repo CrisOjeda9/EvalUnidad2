@@ -11,3 +11,5 @@ class Rol(Base):
     descripcion = Column(String(255))
     estatus = Column(Boolean, default=False)
     created_at = Column(DateTime)
+    fecha_actualizacion = Column(DateTime)
+
