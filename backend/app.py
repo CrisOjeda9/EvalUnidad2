@@ -22,6 +22,18 @@ app.include_router(dispensacion)
 
 
 
+from fastapi.middleware.cors import CORSMiddleware
+
+# Configura CORS para permitir solicitudes desde cualquier origen
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Cambia a ["http://localhost:5173"] si quieres restringir a tu frontend
+    allow_credentials=True,
+    allow_methods=["*"],  # Permitir todos los métodos; puedes ajustar esto si es necesario
+    allow_headers=["*"],  # Permitir todos los encabezados; puedes ajustar esto si es necesario
+)
+
+# Incluye tus routers
 
 
 print("Bienvenido a mi aplicacion")

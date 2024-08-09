@@ -34,6 +34,7 @@ def create_medicamento(medicamento: schemas.medicamentos.MedicamentoCreate, db: 
         raise HTTPException(status_code=400, detail="Medicamento existente, intenta nuevamente")
     return crud.medicamentos.create_medicamento(db=db, medicamento=medicamento)
 
+
 @medicamento.put("/medicamento/{ID}", response_model=schemas.medicamentos.Medicamento, tags=["Medicamentos"], dependencies=[Depends(Portador())])
 def update_medicamento(ID: int, medicamento: schemas.medicamentos.MedicamentoUpdate, db: Session = Depends(get_db)):
     db_medicamento = crud.medicamentos.update_medicamento(db=db, ID=ID, medicamento=medicamento)
