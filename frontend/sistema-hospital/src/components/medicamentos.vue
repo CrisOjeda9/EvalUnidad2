@@ -14,7 +14,8 @@
             <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="nombreCom">
               Nombre Comercial
             </label>
-            <input v-model="form.Nombre_comercial" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600"
+            <input v-model="form.Nombre_comercial"
+              class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600"
               id="nombreCom" type="text" placeholder="" required />
           </div>
 
@@ -23,7 +24,8 @@
             <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="nombreGen">
               Nombre Generico
             </label>
-            <input v-model="form.Nombre_generico" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600"
+            <input v-model="form.Nombre_generico"
+              class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600"
               id="nombreGen" type="text" placeholder="" required />
           </div>
 
@@ -91,8 +93,9 @@
             <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="volumen">
               Volumen
             </label>
-            <input v-model.number="form.Volumen" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600"
-              id="volumen" type="number" placeholder="" />
+            <input v-model.number="form.Volumen"
+              class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600"
+              id="volumen" type="number" step="0.01" min="0" placeholder="" />
           </div>
 
           <!-- Cantidad -->
@@ -100,8 +103,9 @@
             <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="cantidad">
               Cantidad
             </label>
-            <input v-model.number="form.Cantidad" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600"
-              id="cantidad" type="number" placeholder="" required />
+            <input v-model.number="form.Cantidad"
+              class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600"
+              id="cantidad" type="number" placeholder="" min="0" required />
           </div>
 
           <!-- Estatus -->
@@ -154,10 +158,27 @@ export default {
       try {
         await axios.post('http://127.0.0.1:8000/medicamentos/', this.form);
         alert('Medicamento registrado con éxito');
+        // Reiniciar el formulario
+        this.resetForm();
       } catch (error) {
         console.error('Error al registrar medicamento:', error.response ? error.response.data : error.message);
         alert('Error al registrar medicamento');
       }
+    },
+    resetForm() {
+      // Reiniciar los campos del formulario a sus valores iniciales
+      this.form = {
+        Nombre_comercial: '',
+        Nombre_generico: '',
+        Via_administracion: '',
+        Presentacion: '',
+        Tipo: '',
+        Cantidad: null,
+        Volumen: null,
+        Estatus: null,
+        Fecha_registro: new Date().toISOString(),
+        Fecha_actualizacion: new Date().toISOString(),
+      };
     }
   }
 }
