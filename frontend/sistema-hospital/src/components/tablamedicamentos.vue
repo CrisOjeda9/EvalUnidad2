@@ -7,15 +7,21 @@
             </h2>
         </div>
 
-        <!-- Formulario de búsqueda -->
-        <form class="flex items-center max-w-sm mx-auto mb-6">
-            <label for="simple-search" class="sr-only">Search</label>
+        
+
+        <div class="mt-6">
+            <a href="/medicament"
+                class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                Agregar +
+            </a>
+        </div>
+<!-- Formulario de búsqueda -->
+<form class="flex items-center max-w-sm mx-auto mb-6">
+            <label for="simple-search" class="sr-only">Buscar</label>
             <div class="relative w-full">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2" />
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2" />
                     </svg>
                 </div>
                 <input type="text" id="simple-search" v-model="searchQuery"
@@ -25,20 +31,11 @@
             <button type="button" @click="clearSearch"
                 class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
-                <span class="sr-only">Clear Search</span>
+                <span class="sr-only">Limpiar búsqueda</span>
             </button>
         </form>
-
-        <div class="mt-6">
-            <a href="/medicament"
-                class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-                Agregar +
-            </a>
-        </div>
-
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6 bg-white">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -52,27 +49,25 @@
                         <th scope="col" class="px-6 py-3">Volumen</th>
                         <th scope="col" class="px-6 py-3">Cantidad</th>
                         <th scope="col" class="px-6 py-3">Estatus</th>
+                        <th scope="col" class="px-6 py-3">Fecha de Registro</th>
+                        <th scope="col" class="px-6 py-3">Fecha de Actualización</th>
                         <th scope="col" class="px-6 py-3">Acciones</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <tr v-for="item in filteredMedicamentos" :key="item.ID" :class="getRowClass(item)">
                         <td class="px-6 py-4">
                             <span v-if="!item.editing">{{ item.ID }}</span>
                             <input v-else v-model="item.ID" type="text" class="w-full border p-1 rounded" readonly />
                         </td>
-
                         <td class="px-6 py-4">
                             <span v-if="!item.editing">{{ item.Nombre_comercial }}</span>
                             <input v-else v-model="item.Nombre_comercial" type="text" class="w-full border p-1 rounded" />
                         </td>
-
                         <td class="px-6 py-4">
                             <span v-if="!item.editing">{{ item.Nombre_generico }}</span>
                             <input v-else v-model="item.Nombre_generico" type="text" class="w-full border p-1 rounded" />
                         </td>
-
                         <td class="px-6 py-4">
                             <span v-if="!item.editing">{{ item.Via_administracion }}</span>
                             <select v-else v-model="item.Via_administracion" class="w-full px-2 py-1 border rounded">
@@ -89,7 +84,6 @@
                                 <option value="Parenteral">Parenteral</option>
                             </select>
                         </td>
-
                         <td class="px-6 py-4">
                             <span v-if="!item.editing">{{ item.Presentacion }}</span>
                             <select v-else v-model="item.Presentacion" class="w-full px-2 py-1 border rounded">
@@ -106,7 +100,6 @@
                                 <option value="Viales">Viales</option>
                             </select>
                         </td>
-
                         <td class="px-6 py-4">
                             <span v-if="!item.editing">{{ item.Tipo }}</span>
                             <select v-else v-model="item.Tipo" class="w-full px-2 py-1 border rounded">
@@ -119,25 +112,18 @@
                                 <option value="Antipsicóticos">Antipsicóticos</option>
                             </select>
                         </td>
-
                         <td class="px-6 py-4">
                             <span v-if="!item.editing">{{ item.Volumen }}</span>
-                            <input v-else v-model.number="item.Volumen" type="number" step="0.01" min="0"
-                                class="w-full border p-1 rounded" />
+                            <input v-else v-model.number="item.Volumen" type="number" step="0.01" min="0" class="w-full border p-1 rounded" />
                         </td>
-
                         <td class="px-6 py-4">
                             <span v-if="!item.editing">{{ item.Cantidad }}</span>
                             <div v-else class="flex items-center">
-                                <button @click="changeValue(item, 'Cantidad', -1)"
-                                    class="px-2 py-1 border rounded-l bg-gray-200 hover:bg-gray-300">-</button>
-                                <input v-model.number="item.Cantidad" type="number" min="0"
-                                    class="w-20 px-2 py-1 border-t border-b text-center" />
-                                <button @click="changeValue(item, 'Cantidad', 1)"
-                                    class="px-2 py-1 border rounded-r bg-gray-200 hover:bg-gray-300">+</button>
+                                <button @click="changeValue(item, 'Cantidad', -1)" class="px-2 py-1 border rounded-l bg-gray-200 hover:bg-gray-300">-</button>
+                                <input v-model.number="item.Cantidad" type="number" min="0" class="w-20 px-2 py-1 border-t border-b text-center" />
+                                <button @click="changeValue(item, 'Cantidad', 1)" class="px-2 py-1 border rounded-r bg-gray-200 hover:bg-gray-300">+</button>
                             </div>
                         </td>
-
                         <td class="px-6 py-4">
                             <span v-if="!item.editing">{{ item.Estatus ? 'Activo' : 'Inactivo' }}</span>
                             <select v-else v-model="item.Estatus" class="w-full px-2 py-1 border rounded">
@@ -145,16 +131,17 @@
                                 <option :value="false">Inactivo</option>
                             </select>
                         </td>
-
+                        <td class="px-6 py-4">
+                            <span>{{ formatDate(item.Fecha_registro) }}</span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span>{{ formatDate(item.Fecha_actualizacion) }}</span>
+                        </td>
                         <td class="px-6 py-4 text-center">
-                            <a href="#" v-if="!item.editing" @click.prevent="editItem(item)"
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
-                            <a href="#" v-if="!item.editing" @click.prevent="deleteItem(item.ID)"
-                                class="font-medium text-red-600 dark:text-red-500 hover:underline"> Eliminar</a>
-                            <a href="#" v-if="item.editing" @click.prevent="saveItem(item)"
-                                class="font-medium text-green-600 dark:text-green-500 hover:underline">Guardar</a>
-                            <a href="#" v-if="item.editing" @click.prevent="cancelEdit(item)"
-                                class="font-medium text-gray-600 dark:text-gray-500 hover:underline">Cancelar</a>
+                            <a href="#" v-if="!item.editing" @click.prevent="editItem(item)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                            <a href="#" v-if="!item.editing" @click.prevent="deleteItem(item.ID)" class="font-medium text-red-600 dark:text-red-500 hover:underline">Eliminar</a>
+                            <a href="#" v-if="item.editing" @click.prevent="saveItem(item)" class="font-medium text-green-600 dark:text-green-500 hover:underline">Guardar</a>
+                            <a href="#" v-if="item.editing" @click.prevent="cancelEdit(item)" class="font-medium text-gray-600 dark:text-gray-500 hover:underline">Cancelar</a>
                         </td>
                     </tr>
                 </tbody>
@@ -229,7 +216,7 @@ export default {
         },
         async deleteItem(id) {
             try {
-                const url = `http://127.0.0.1:8000/medicamento/${id}`; // Actualiza la ruta aquí
+                const url = `http://localhost:8000/medicamento/${id}`; // Actualiza la ruta aquí
                 const response = await fetch(url, {
                     method: 'DELETE',
                     headers: {
@@ -247,13 +234,18 @@ export default {
             } catch (error) {
                 console.error('Error deleting item:', error);
             }
-        }
-        ,
+        },
         changeValue(item, field, delta) {
             item[field] = Math.max((item[field] || 0) + delta, 0); // Evitar valores negativos
         },
         getRowClass(item) {
             return item.editing ? 'bg-gray-100' : '';
+        },
+        formatDate(dateString) {
+            if (!dateString) return 'Fecha no disponible';
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return 'Fecha no válida';
+            return date.toLocaleDateString(); // Puedes ajustar el formato si es necesario
         },
         clearSearch() {
             this.searchQuery = '';
@@ -264,3 +256,7 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+/* Puedes añadir estilos personalizados aquí */
+</style>
