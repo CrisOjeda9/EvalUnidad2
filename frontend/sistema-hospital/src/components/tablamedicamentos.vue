@@ -7,7 +7,7 @@
             </h2>
         </div>
 
-        
+
 
         <div class="mt-6">
             <a href="/medicament"
@@ -15,13 +15,15 @@
                 Agregar +
             </a>
         </div>
-<!-- Formulario de búsqueda -->
-<form class="flex items-center max-w-sm mx-auto mb-6">
+        <!-- Formulario de búsqueda -->
+        <form class="flex items-center max-w-sm mx-auto mb-6">
             <label for="simple-search" class="sr-only">Buscar</label>
             <div class="relative w-full">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2" />
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2" />
                     </svg>
                 </div>
                 <input type="text" id="simple-search" v-model="searchQuery"
@@ -31,7 +33,8 @@
             <button type="button" @click="clearSearch"
                 class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
                 <span class="sr-only">Limpiar búsqueda</span>
             </button>
@@ -114,14 +117,18 @@
                         </td>
                         <td class="px-6 py-4">
                             <span v-if="!item.editing">{{ item.Volumen }}</span>
-                            <input v-else v-model.number="item.Volumen" type="number" step="0.01" min="0" class="w-full border p-1 rounded" />
+                            <input v-else v-model.number="item.Volumen" type="number" step="0.01" min="0"
+                                class="w-full border p-1 rounded" />
                         </td>
                         <td class="px-6 py-4">
                             <span v-if="!item.editing">{{ item.Cantidad }}</span>
                             <div v-else class="flex items-center">
-                                <button @click="changeValue(item, 'Cantidad', -1)" class="px-2 py-1 border rounded-l bg-gray-200 hover:bg-gray-300">-</button>
-                                <input v-model.number="item.Cantidad" type="number" min="0" class="w-20 px-2 py-1 border-t border-b text-center" />
-                                <button @click="changeValue(item, 'Cantidad', 1)" class="px-2 py-1 border rounded-r bg-gray-200 hover:bg-gray-300">+</button>
+                                <button @click="changeValue(item, 'Cantidad', -1)"
+                                    class="px-2 py-1 border rounded-l bg-gray-200 hover:bg-gray-300">-</button>
+                                <input v-model.number="item.Cantidad" type="number" min="0"
+                                    class="w-20 px-2 py-1 border-t border-b text-center" />
+                                <button @click="changeValue(item, 'Cantidad', 1)"
+                                    class="px-2 py-1 border rounded-r bg-gray-200 hover:bg-gray-300">+</button>
                             </div>
                         </td>
                         <td class="px-6 py-4">
@@ -138,10 +145,14 @@
                             <span>{{ formatDate(item.Fecha_actualizacion) }}</span>
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <a href="#" v-if="!item.editing" @click.prevent="editItem(item)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
-                            <a href="#" v-if="!item.editing" @click.prevent="deleteItem(item.ID)" class="font-medium text-red-600 dark:text-red-500 hover:underline">Eliminar</a>
-                            <a href="#" v-if="item.editing" @click.prevent="saveItem(item)" class="font-medium text-green-600 dark:text-green-500 hover:underline">Guardar</a>
-                            <a href="#" v-if="item.editing" @click.prevent="cancelEdit(item)" class="font-medium text-gray-600 dark:text-gray-500 hover:underline">Cancelar</a>
+                            <a href="#" v-if="!item.editing" @click.prevent="editItem(item)"
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                            <a href="#" v-if="!item.editing" @click.prevent="deleteItem(item.ID)"
+                                class="font-medium text-red-600 dark:text-red-500 hover:underline">Eliminar</a>
+                            <a href="#" v-if="item.editing" @click.prevent="saveItem(item)"
+                                class="font-medium text-green-600 dark:text-green-500 hover:underline">Guardar</a>
+                            <a href="#" v-if="item.editing" @click.prevent="cancelEdit(item)"
+                                class="font-medium text-gray-600 dark:text-gray-500 hover:underline">Cancelar</a>
                         </td>
                     </tr>
                 </tbody>
@@ -257,6 +268,4 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Puedes añadir estilos personalizados aquí */
-</style>
+<style scoped>/* Puedes añadir estilos personalizados aquí */</style>
