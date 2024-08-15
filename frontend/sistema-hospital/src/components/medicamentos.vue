@@ -40,12 +40,12 @@
               <option value="Oral">Oral</option>
               <option value="Intravenoso">Intravenoso</option>
               <option value="Rectal">Rectal</option>
-              <option value="Cutaneo">Cutáneo</option>
-              <option value="Subcutaneo">Subcutáneo</option>
-              <option value="Oftalmica">Oftálmica</option>
-              <option value="Otica">Ótica</option>
+              <option value="Cutáneo">Cutáneo</option>
+              <option value="Subcutáneo">Subcutáneo</option>
+              <option value="Oftálmica">Oftálmica</option>
+              <option value="Ótica">Ótica</option>
               <option value="Nasal">Nasal</option>
-              <option value="Topica">Tópica</option>
+              <option value="Tópica">Tópica</option>
               <option value="Parenteral">Parenteral</option>
             </select>
           </div>
@@ -60,12 +60,12 @@
               <option value="" disabled>Selecciona tipo</option>
               <option value="Comprimidos">Comprimidos</option>
               <option value="Grageas">Grageas</option>
-              <option value="Capsulas">Cápsulas</option>
+              <option value="Cápsulas">Cápsulas</option>
               <option value="Jarabes">Jarabes</option>
               <option value="Gotas">Gotas</option>
-              <option value="Solucion">Solución</option>
+              <option value="Solución">Solución</option>
               <option value="Pomada">Pomada</option>
-              <option value="Jabon">Jabón</option>
+              <option value="Jabón">Jabón</option>
               <option value="Supositorios">Supositorios</option>
               <option value="Viales">Viales</option>
             </select>
