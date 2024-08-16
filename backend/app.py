@@ -8,6 +8,7 @@ from routes.usersrols import userrol
 from routes.medicamentos import medicamento
 from routes.dispensaciones import dispensacion
 from routes.lotes import lote
+from routes.consumibles import consumible
 
 
 
@@ -22,6 +23,9 @@ app.include_router(userrol)
 app.include_router(medicamento)
 app.include_router(dispensacion)
 app.include_router(lote)
+app.include_router(consumible)
+
+
 
 
 
