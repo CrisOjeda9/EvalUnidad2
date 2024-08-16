@@ -57,7 +57,7 @@
               Departamento
             </label>
             <input v-model.number="form.Departamento_ID" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600"
-              id="departamento" type="number" placeholder="" required />
+              id="departamento" type="number" placeholder="" min="0" required />
           </div>
 
           <!-- Estatus -->
