@@ -13,19 +13,20 @@
             <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="medicamento">
               Medicamento
             </label>
-            <select v-model="form.Medicamento_ID" id="medicamento" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
+            <select v-model="selectedMedicamento" @change="updateMedicamentoId" id="medicamento"
+              class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
               <option value="">--Selecciona el Medicamento--</option>
-              <option value="1">Medicamento 1</option>
-              <option value="2">Medicamento 2</option>
-              <option value="3">Medicamento 3</option>
+              <option v-for="medicamento in medicamentos" :key="medicamento.id" :value="medicamento.nombreGenerico">
+                {{ medicamento.nombreGenerico }}
+              </option>
             </select>
           </div>
-
           <div>
             <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="medico">
               Personal Medico
             </label>
-            <select v-model="form.Personal_Medico_ID" id="medico" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
+            <select v-model="form.Personal_Medico_ID" id="medico"
+              class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
               <option value="">--Selecciona el Personal Medico--</option>
               <option value="1">Cedula 1</option>
               <option value="2">Cedula 2</option>
@@ -37,14 +38,16 @@
             <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="clave">
               Clave
             </label>
-            <input v-model="form.Clave" type="text" id="clave" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
+            <input v-model="form.Clave" type="text" id="clave"
+              class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
           </div>
 
           <div>
             <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="estatus">
               Estatus
             </label>
-            <select v-model="form.Estatus" id="estatus" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
+            <select v-model="form.Estatus" id="estatus"
+              class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
               <option value="">--Selecciona el Estatus--</option>
               <option value="Reservado">Reservado</option>
               <option value="En_transito">En transito</option>
@@ -57,26 +60,30 @@
             <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="costo">
               Costo Total
             </label>
-            <input v-model.number="form.Costo_Total" type="number" id="costo" step="0.01" min="0" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
+            <input v-model.number="form.Costo_Total" type="number" id="costo" step="0.01" min="0"
+              class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
           </div>
 
           <div>
             <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="cantidad">
               Cantidad
             </label>
-            <input v-model.number="form.Cantidad" type="number" id="cantidad" min="0" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
+            <input v-model.number="form.Cantidad" type="number" id="cantidad" min="0"
+              class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
           </div>
 
           <div>
             <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="ubicacion">
               Ubicación
             </label>
-            <input v-model="form.Ubicacion" type="text" id="ubicacion" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
+            <input v-model="form.Ubicacion" type="text" id="ubicacion"
+              class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
           </div>
         </div>
 
         <div class="mt-6 text-center">
-          <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 w-full rounded-lg hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <button type="submit"
+            class="bg-indigo-600 text-white font-semibold py-2 px-4 w-full rounded-lg hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
             Crear
           </button>
         </div>
@@ -95,17 +102,47 @@ export default {
         Medicamento_ID: '',
         Personal_Medico_ID: '',
         Clave: '',
-        Estatus: '', // Debe coincidir con los valores del Enum en el backend
+        Estatus: '',
         Costo_Total: null,
         Cantidad: null,
         Ubicacion: '',
         Fecha_Registro: new Date().toISOString(),
         Fecha_Actualizacion: new Date().toISOString()
-      }
-    }
+      },
+      medicamentos: [],
+      selectedMedicamento: '',
+      medicamentoIdMap: {}
+    };
+  },
+  created() {
+    this.fetchMedicamentos();
   },
   methods: {
+    async fetchMedicamentos() {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/medicamentos/');
+        this.medicamentos = response.data.map(medicamento => ({
+          id: medicamento.ID,
+          nombreGenerico: medicamento.Nombre_generico
+        }));
+
+        // Crear un mapa de nombre genérico a ID para búsqueda rápida
+        this.medicamentoIdMap = this.medicamentos.reduce((map, medicamento) => {
+          map[medicamento.nombreGenerico] = medicamento.id;
+          return map;
+        }, {});
+      } catch (error) {
+        console.error('Error al obtener los medicamentos:', error);
+      }
+    },
+    updateMedicamentoId() {
+      const id = this.medicamentoIdMap[this.selectedMedicamento];
+      console.log('Nombre genérico seleccionado:', this.selectedMedicamento);
+      console.log('ID del medicamento:', id);
+      this.form.Medicamento_ID = id !== undefined ? id : '';
+    },
     async submitForm() {
+      console.log('Datos del formulario:', this.form);  // Agrega esto para depuración
       try {
         const response = await axios.post('http://127.0.0.1:8000/lotes/', this.form);
         console.log('Lote creado:', response.data);
@@ -114,5 +151,5 @@ export default {
       }
     }
   }
-}
+};
 </script>

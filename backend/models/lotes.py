@@ -14,7 +14,7 @@ class Lote(Base):
     __tablename__ = "tbd_lotes_medicamentos"
     
     ID = Column(Integer, primary_key=True, index=True)
-    Medicamento_ID = Column(Integer, nullable=False)
+    Medicamento_ID = Column(Integer,ForeignKey("tbc_medicamentos.ID"))
     Personal_Medico_ID = Column(Integer, nullable=False)
     Clave = Column(String(20))
     Estatus = Column(Enum(EstatusLote))
