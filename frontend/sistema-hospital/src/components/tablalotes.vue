@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-200 flex-col justify-center py-5 sm:px-6 lg:px-8 px-6 bg-repeat">
+  <div class="min-h-screen bg-gray-200 bg-opacity-100 flex-col justify-center py-5 sm:px-6 lg:px-8 px-6 bg-repeat">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <img class="mx-auto h-10 w-auto" src="https://www.svgrepo.com/show/301692/login.svg" alt="Workflow">
       <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
@@ -36,9 +36,8 @@
       </button>
     </form>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-white">
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-
           <tr>
             <th scope="col" class="px-6 py-3">Medicamento</th>
             <th scope="col" class="px-6 py-3">Personal Médico</th>
@@ -53,10 +52,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in lotes" :key="item.ID" :class="getRowClass(item)">
+          <tr v-for="item in filteredLotes" :key="item.ID" :class="getRowClass(item)">
             <td class="px-6 py-4">
               <span v-if="!item.editing">{{ getMedicamentoName(item.Medicamento_ID) }}</span>
-              <input v-else v-model="item.Medicamento_ID" type="text" class="w-full border p-1 rounded" />
+              <select v-else v-model="item.Medicamento_ID" class="w-full border p-1 rounded">
+                <option v-for="medicamento in medicamentos" :key="medicamento.id" :value="medicamento.id">
+                  {{ medicamento.nombreGenerico }}
+                </option>
+              </select>
             </td>
             <td class="px-6 py-4">
               <span v-if="!item.editing">{{ item.Personal_Medico_ID }}</span>
@@ -70,7 +73,7 @@
               <span v-if="!item.editing">{{ item.Estatus }}</span>
               <select v-else v-model="item.Estatus" class="w-full border p-1 rounded">
                 <option value="Reservado">Reservado</option>
-                <option value="En_transito">En transito</option>
+                <option value="En transito">En transito</option>
                 <option value="Recibido">Recibido</option>
                 <option value="Rechazado">Rechazado</option>
               </select>
@@ -100,12 +103,13 @@
             </td>
             <td class="px-6 py-4">
               <span v-if="!item.editing">{{ new Date(item.Fecha_Actualizacion).toLocaleString() }}</span>
-              <input v-else v-model="item.Fecha_Actualizacion" type="datetime-local" class="w-full border p-1 rounded" />
+              <span v-else>{{ new Date().toLocaleString() }}</span>
             </td>
             <td class="px-6 py-4 text-center">
-              <button @click="editItem(item)" class="text-blue-500 hover:underline">Editar</button>
-              <button v-if="item.editing" @click="saveItem(item)" class="text-green-500 hover:underline">Guardar</button>
-              <button v-if="item.editing" @click="cancelEdit(item)" class="text-red-500 hover:underline">Cancelar</button>
+              <a href="#" v-if="!item.editing" @click.prevent="editItem(item)" class="font-medium text-blue-600 hover:underline">Editar</a>
+              <a href="#" v-if="!item.editing" @click.prevent="deleteItem(item.ID)" class="font-medium text-red-600 hover:underline ml-2">Eliminar</a>
+              <a href="#" v-if="item.editing" @click.prevent="saveItem(item)" class="font-medium text-green-600 hover:underline ml-2">Guardar</a>
+              <a href="#" v-if="item.editing" @click.prevent="cancelEdit(item)" class="font-medium text-gray-600 hover:underline ml-2">Cancelar</a>
             </td>
           </tr>
         </tbody>
@@ -130,6 +134,16 @@ export default {
     this.fetchLotes();
     this.fetchMedicamentos();
   },
+  computed: {
+    filteredLotes() {
+      const query = this.searchQuery.toLowerCase();
+      return this.lotes.filter(lote => {
+        return Object.values(lote).some(value =>
+          String(value).toLowerCase().includes(query)
+        );
+      });
+    }
+  },
   methods: {
     async fetchLotes() {
       try {
@@ -147,7 +161,7 @@ export default {
           nombreGenerico: medicamento.Nombre_generico
         }));
         this.medicamentoIdMap = this.medicamentos.reduce((map, medicamento) => {
-          map[medicamento.nombreGenerico] = medicamento.id;
+          map[medicamento.id] = medicamento.nombreGenerico;
           return map;
         }, {});
       } catch (error) {
@@ -155,47 +169,63 @@ export default {
       }
     },
     getMedicamentoName(ID) {
-      const medicamento = this.medicamentos.find(m => m.id === ID);
-      return medicamento ? medicamento.nombreGenerico : 'Desconocido';
+      return this.medicamentoIdMap[ID] || 'Desconocido';
     },
     editItem(item) {
       item.editing = !item.editing;
     },
     async saveItem(item) {
+      item.editing = false;
+      item.Fecha_Actualizacion = new Date().toISOString(); // Actualiza la fecha de modificación
+
       try {
-        await axios.put(`http://127.0.0.1:8000/lotes/${item.ID}/`, item);
-        item.editing = false;
-        this.fetchLotes();
+        const url = `http://127.0.0.1:8000/lote/${item.ID}/`;
+        const response = await axios.put(url, item);
+
+        if (response.status === 200) {
+          console.log('Item actualizado exitosamente');
+        } else {
+          console.error('Estado de respuesta inesperado:', response.status);
+        }
       } catch (error) {
-        console.error('Error al guardar el lote:', error);
+        console.error('Error al guardar el item:', error.response ? error.response.data : error.message);
+        item.editing = true; // Si hay error, vuelve a poner el item en estado de edición
+      }
+    },
+    async deleteItem(id) {
+      try {
+        const url = `http://127.0.0.1:8000/lote/${id}/`;
+        const response = await axios.delete(url);
+
+        if (response.status === 200) {
+          console.log(`Elemento con ID ${id} fue eliminado.`);
+          await this.fetchLotes(); // Recargar datos después de eliminar
+        } else {
+          console.error(`Error al eliminar el item con ID ${id}: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error('Error al eliminar el item:', error);
       }
     },
     cancelEdit(item) {
       item.editing = false;
-      this.fetchLotes();
+      this.fetchLotes();  // Recargar datos después de cancelar
     },
     clearSearch() {
       this.searchQuery = '';
     },
-    getRowClass(item) {
-      return item.editing ? 'bg-gray-100' : '';
-    },
     changeValue(item, field, delta) {
-      if (item[field] !== undefined) {
-        item[field] = Math.max(0, (item[field] || 0) + delta);
+      if (item.editing) {
+        item[field] = Math.max(0, parseFloat((item[field] + delta).toFixed(2))); // Prevenir valores negativos
       }
-    }
-  },
-  computed: {
-    filteredLotes() {
-      const query = this.searchQuery.toLowerCase();
-      return this.lotes.filter(lote =>
-        lote.Medicamento_ID.toLowerCase().includes(query) ||
-        lote.Personal_Medico_ID.toLowerCase().includes(query) ||
-        lote.Clave.toLowerCase().includes(query) ||
-        lote.Estatus.toLowerCase().includes(query) ||
-        lote.Ubicacion.toLowerCase().includes(query)
-      );
+    },
+    getRowClass(item) {
+      return {
+        'bg-gray-100 dark:bg-gray-800': item.editing,
+        'odd:bg-white odd:dark:bg-gray-900': !item.editing,
+        'even:bg-gray-50 even:dark:bg-gray-800': !item.editing,
+        'border-b dark:border-gray-700': !item.editing
+      };
     }
   }
 };
