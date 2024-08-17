@@ -50,7 +50,7 @@
               class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600">
               <option value="">--Selecciona el Estatus--</option>
               <option value="Reservado">Reservado</option>
-              <option value="En_transito">En transito</option>
+              <option value="En transito">En transito</option>
               <option value="Recibido">Recibido</option>
               <option value="Rechazado">Rechazado</option>
             </select>

@@ -73,7 +73,7 @@
               <span v-if="!item.editing">{{ item.Estatus }}</span>
               <select v-else v-model="item.Estatus" class="w-full border p-1 rounded">
                 <option value="Reservado">Reservado</option>
-                <option value="En transito">En transito</option>
+                <option value="Entransito">En transito</option>
                 <option value="Recibido">Recibido</option>
                 <option value="Rechazado">Rechazado</option>
               </select>
@@ -99,11 +99,11 @@
               <input v-else v-model="item.Ubicacion" type="text" class="w-full border p-1 rounded" />
             </td>
             <td class="px-6 py-4">
-              <span>{{ new Date(item.Fecha_Registro).toLocaleString() }}</span>
+              <span>{{ new Date(item.Fecha_Registro).toLocaleDateString() }}</span>
             </td>
             <td class="px-6 py-4">
-              <span v-if="!item.editing">{{ new Date(item.Fecha_Actualizacion).toLocaleString() }}</span>
-              <span v-else>{{ new Date().toLocaleString() }}</span>
+              <span v-if="!item.editing">{{ new Date(item.Fecha_Actualizacion).toLocaleDateString() }}</span>
+              <span v-else>{{ new Date().toLocaleDateString() }}</span>
             </td>
             <td class="px-6 py-4 text-center">
               <a href="#" v-if="!item.editing" @click.prevent="editItem(item)" class="font-medium text-blue-600 hover:underline">Editar</a>
@@ -138,7 +138,9 @@ export default {
     filteredLotes() {
       const query = this.searchQuery.toLowerCase();
       return this.lotes.filter(lote => {
-        return Object.values(lote).some(value =>
+        const medicamentoName = this.getMedicamentoName(lote.Medicamento_ID).toLowerCase();
+        return medicamentoName.includes(query) || 
+        Object.values(lote).some(value =>
           String(value).toLowerCase().includes(query)
         );
       });
@@ -189,7 +191,7 @@ export default {
         }
       } catch (error) {
         console.error('Error al guardar el item:', error.response ? error.response.data : error.message);
-        item.editing = true; // Si hay error, vuelve a poner el item en estado de edición
+        item.editing = true; 
       }
     },
     async deleteItem(id) {
@@ -199,7 +201,7 @@ export default {
 
         if (response.status === 200) {
           console.log(`Elemento con ID ${id} fue eliminado.`);
-          await this.fetchLotes(); // Recargar datos después de eliminar
+          await this.fetchLotes();
         } else {
           console.error(`Error al eliminar el item con ID ${id}: ${response.status} ${response.statusText}`);
         }
@@ -209,14 +211,14 @@ export default {
     },
     cancelEdit(item) {
       item.editing = false;
-      this.fetchLotes();  // Recargar datos después de cancelar
+      this.fetchLotes(); 
     },
     clearSearch() {
       this.searchQuery = '';
     },
     changeValue(item, field, delta) {
       if (item.editing) {
-        item[field] = Math.max(0, parseFloat((item[field] + delta).toFixed(2))); // Prevenir valores negativos
+        item[field] = Math.max(0, parseFloat((item[field] + delta).toFixed(2))); 
       }
     },
     getRowClass(item) {
@@ -232,5 +234,4 @@ export default {
 </script>
 
 <style scoped>
-/* Agrega tus estilos aquí si es necesario */
 </style>
