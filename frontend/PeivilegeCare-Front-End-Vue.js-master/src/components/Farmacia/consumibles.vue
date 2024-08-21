@@ -70,8 +70,17 @@
               <option value="" disabled>Selecciona estatus</option>
               <option value="Activo">Activo</option>
               <option value="Inactivo">Inactivo</option>
-              <option value="En Revisión">En Revisión</option>
+              <!-- <option value="En Revision">En Revision</option> -->
             </select>
+          </div>
+
+          <!-- Observaciones -->
+          <div>
+            <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white" for="observaciones">
+              Observaciones
+            </label>
+            <textarea v-model="form.Observaciones" class="w-full px-4 py-2 text-sm border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white dark:bg-gray-700 dark:border-gray-600"
+              id="observaciones" placeholder=""></textarea>
           </div>
 
           <!-- Espacio Médico -->
@@ -108,6 +117,7 @@ export default {
         Tipo: '',
         Departamento_ID: null,
         Estatus: '',
+        Observaciones: '',
         Espacio_Medico: '',
       },
       searchQuery: ''
@@ -139,6 +149,7 @@ export default {
         Tipo: '',
         Departamento_ID: null,
         Estatus: '',
+        Observaciones: '',
         Espacio_Medico: '',
       };
     },

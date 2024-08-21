@@ -6,7 +6,7 @@ import enum
 class EstatusEnum(str, enum.Enum):
     Activo = "Activo"
     Inactivo = "Inactivo"
-    En_Revisión = "En Revisión"
+    En_Revision = "En Revision"
 
 class ConsumibleBase(BaseModel):
     Nombre: str

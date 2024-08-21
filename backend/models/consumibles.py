@@ -7,7 +7,7 @@ import enum
 class EstatusEnum(enum.Enum):
     Activo = "Activo"
     Inactivo = "Inactivo"
-    En_Revisión = "En Revisión"
+    En_Revision = "En Revision"
 
 class Consumible(Base):
     __tablename__ = "tbc_consumibles"
