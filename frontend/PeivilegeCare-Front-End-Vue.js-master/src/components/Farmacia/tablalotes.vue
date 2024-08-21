@@ -73,7 +73,7 @@
               <span v-if="!item.editing">{{ item.Estatus }}</span>
               <select v-else v-model="item.Estatus" class="w-full border p-1 rounded">
                 <option value="Reservado">Reservado</option>
-                <option value="Entransito">En transito</option>
+                <option value="En transito">En transito</option>
                 <option value="Recibido">Recibido</option>
                 <option value="Rechazado">Rechazado</option>
               </select>
