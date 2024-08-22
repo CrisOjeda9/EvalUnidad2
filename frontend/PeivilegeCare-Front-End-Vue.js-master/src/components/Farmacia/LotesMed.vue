@@ -84,7 +84,7 @@
         <div class="mt-6 text-center">
           <button type="submit"
             class="bg-indigo-600 text-white font-semibold py-2 px-4 w-full rounded-lg hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            Crear
+            Registrar
           </button>
         </div>
       </form>
@@ -137,18 +137,32 @@ export default {
     },
     updateMedicamentoId() {
       const id = this.medicamentoIdMap[this.selectedMedicamento];
-      console.log('Nombre genérico seleccionado:', this.selectedMedicamento);
-      console.log('ID del medicamento:', id);
       this.form.Medicamento_ID = id !== undefined ? id : '';
     },
     async submitForm() {
-      console.log('Datos del formulario:', this.form);  // Agrega esto para depuración
       try {
         const response = await axios.post('http://127.0.0.1:8000/lotes/', this.form);
         console.log('Lote creado:', response.data);
+        alert('Lote registrado con éxito');
+        this.resetForm();  // Reiniciar el formulario después de enviar
       } catch (error) {
-        console.error('Error al crear el lote:', error.response ? error.response.data : error.message);
+        console.error('Error al registrar el lote:', error.response ? error.response.data : error.message);
+        alert('Error al registrar el lote');
       }
+    },
+    resetForm() {
+      this.form = {
+        Medicamento_ID: '',
+        Personal_Medico_ID: '',
+        Clave: '',
+        Estatus: '',
+        Costo_Total: null,
+        Cantidad: null,
+        Ubicacion: '',
+        Fecha_Registro: new Date().toISOString(),
+        Fecha_Actualizacion: new Date().toISOString()
+      };
+      this.selectedMedicamento = '';
     }
   }
 };
